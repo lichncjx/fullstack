@@ -10,4 +10,6 @@ public class FullstackApplication {
 		SpringApplication.run(FullstackApplication.class, args);
 	}
 
+
+
 }
