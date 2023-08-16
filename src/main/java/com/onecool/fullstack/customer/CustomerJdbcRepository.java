@@ -82,7 +82,7 @@ public class CustomerJdbcRepository implements CustomerRepository {
     }
 
     @Override
-    public boolean existById(Long id) {
+    public boolean existsById(Long id) {
         var sql = """
                 select count(*)
                 from customer
@@ -93,7 +93,7 @@ public class CustomerJdbcRepository implements CustomerRepository {
     }
 
     @Override
-    public boolean existByEmail(String email) {
+    public boolean existsByEmail(String email) {
         var sql = """
                 select count(*)
                 from customer
