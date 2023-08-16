@@ -38,12 +38,12 @@ public class CustomerJpaRepository implements CustomerRepository {
     }
 
     @Override
-    public boolean existById(Long id) {
+    public boolean existsById(Long id) {
         return jpaRepository.existsById(id);
     }
 
     @Override
-    public boolean existByEmail(String email) {
+    public boolean existsByEmail(String email) {
         return jpaRepository.existsByEmail(email);
     }
 }

@@ -10,6 +10,6 @@ public interface CustomerRepository {
     void insertCustomer(Customer customer);
     void updateCustomer(Customer customer);
     void deleteCustomerById(Long id);
-    boolean existById(Long id);
-    boolean existByEmail(String email);
+    boolean existsById(Long id);
+    boolean existsByEmail(String email);
 }
