@@ -1,6 +1,7 @@
 package com.onecool.fullstack.customer;
 
 import com.onecool.fullstack.exception.DuplicateResourceException;
+import com.onecool.fullstack.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,10 @@ public class CustomerService {
     }
 
     public Customer getCustomerById(Long id) {
-        return repository.getCustomerById(id).orElseThrow();
+        return repository.getCustomerById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "customer with id [%s] not found".formatted(id)
+                ));
     }
 
     public void register(RegisterCustomerRequest request) {
@@ -54,5 +58,9 @@ public class CustomerService {
 
         if (change)
             repository.updateCustomer(customer);
+    }
+
+    public void deleteCustomerById(Long id) {
+        repository.deleteCustomerById(id);
     }
 }
