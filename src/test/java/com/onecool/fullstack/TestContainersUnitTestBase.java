@@ -30,6 +30,7 @@ public abstract class TestContainersUnitTestBase {
                 postgreSQLContainer.getUsername(),
                 postgreSQLContainer.getPassword()
         ).load();
+
         flyway.migrate();
     }
 
