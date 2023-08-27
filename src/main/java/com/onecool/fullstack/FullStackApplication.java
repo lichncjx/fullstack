@@ -16,8 +16,8 @@ public class FullStackApplication {
         SpringApplication.run(FullStackApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner commandLineRunner(@Qualifier("jdbc") CustomerRepository customers) {
+//    @Bean
+    CommandLineRunner commandLineRunner(@Qualifier("jpa") CustomerRepository customers) {
         return args -> {
 
             Faker faker = new Faker();

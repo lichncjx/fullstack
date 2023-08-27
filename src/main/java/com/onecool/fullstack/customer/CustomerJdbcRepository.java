@@ -56,18 +56,22 @@ public class CustomerJdbcRepository implements CustomerRepository {
 
     @Override
     public void updateCustomer(Customer customer) {
-        var sql = """
-                update customer
-                set name = ?, email = ?, age = ?
-                where id = ?
-                """;
-        int update = jdbcTemplate.update(sql,
-                customer.getName(),
-                customer.getEmail(),
-                customer.getAge(),
-                customer.getId());
 
-        log.info("jdbcTemplate.update " + update);
+        if (customer.getName() != null){
+            var sql = "update customer set name = ? where id = ?";
+            int result = jdbcTemplate.update(sql, customer.getName(), customer.getId());
+            System.out.println("update customer name result = " + result);
+        }
+        if (customer.getEmail() != null){
+            var sql = "update customer set email = ? where id = ?";
+            int result = jdbcTemplate.update(sql, customer.getEmail(), customer.getId());
+            System.out.println("update customer email result = " + result);
+        }
+        if (customer.getAge() != null){
+            var sql = "update customer set age = ? where id = ?";
+            int result = jdbcTemplate.update(sql, customer.getAge(), customer.getId());
+            System.out.println("update customer age result = " + result);
+        }
     }
 
     @Override
