@@ -1,16 +1,17 @@
 package com.onecool.fullstack.customer;
 
+import com.onecool.fullstack.exception.DuplicateResourceException;
 import com.onecool.fullstack.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,10 +67,42 @@ class CustomerServiceTest {
     @Test
     void register() {
         // Given
+        String email = "alex@gmail.com";
+
+        //when(customerRepository.existsByEmail(email)).thenReturn(false);
+
+        RegisterCustomerRequest request = new RegisterCustomerRequest("Alex", email, 19);
 
         // When
+        underTestService.register(request);
 
         // Then
+        ArgumentCaptor<Customer> customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
+        verify(customerRepository).insertCustomer(customerArgumentCaptor.capture());
+        Customer capturedCustomer = customerArgumentCaptor.getValue();
+
+        assertThat(capturedCustomer.getId()).isNull();
+        assertThat(capturedCustomer.getName()).isEqualTo(request.name());
+        assertThat(capturedCustomer.getEmail()).isEqualTo(request.email());
+        assertThat(capturedCustomer.getAge()).isEqualTo(request.age());
+    }
+
+    @Test
+    void registerWillThrowWhenEmailExists() {
+        // Given
+        String email = "alex@gmail.com";
+
+        when(customerRepository.existsByEmail(email)).thenReturn(true);
+
+        RegisterCustomerRequest request = new RegisterCustomerRequest("Alex", email, 19);
+
+        // When
+        // Then
+        assertThatThrownBy(() -> underTestService.register(request))
+                .isInstanceOf(DuplicateResourceException.class)
+                .hasMessage("email already taken");
+
+        verify(customerRepository, never()).insertCustomer(any());
     }
 
     @Test
@@ -84,9 +117,11 @@ class CustomerServiceTest {
     @Test
     void deleteCustomerById() {
         // Given
+        long id = 1;
 
         // When
+        underTestService.deleteCustomerById(id);
 
         // Then
-    }
+        verify(customerRepository).deleteCustomerById(id);    }
 }
