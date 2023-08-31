@@ -1,0 +1,36 @@
+services:
+  db:
+    container_name: pg
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fullstack
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "5332:5432"
+    networks:
+      - db
+    restart: unless-stopped
+
+  fullstack:
+    container_name: fullstack
+    image: lichncjx/fullstack
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/fullstack
+    ports:
+      - "8080:8080"
+    networks:
+      - db
+    depends_on:
+      - db
+    restart: unless-stopped
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db:

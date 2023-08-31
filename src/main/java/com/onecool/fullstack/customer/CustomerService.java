@@ -28,7 +28,7 @@ public class CustomerService {
     }
 
     public void register(RegisterCustomerRequest request) {
-        if(repository.existsByEmail(request.email())) return;
+        if(repository.existsByEmail(request.email())) throw new DuplicateResourceException("email already taken");
 
         repository.insertCustomer(Customer.create(request.name(), request.email(), request.age()));
     }
