@@ -31,5 +31,4 @@ public class FullStackApplication {
             customers.insertCustomer(customer);
         };
     }
-
 }
