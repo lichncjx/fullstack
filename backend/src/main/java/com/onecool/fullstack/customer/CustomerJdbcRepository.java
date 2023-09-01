@@ -101,7 +101,7 @@ public class CustomerJdbcRepository implements CustomerRepository {
         var sql = """
                 select count(*)
                 from customer
-                where email = ?
+                where name = ?
                 """;
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email);
         return count != null && count > 0;
