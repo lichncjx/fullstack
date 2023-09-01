@@ -16,7 +16,7 @@ public class FullStackApplication {
         SpringApplication.run(FullStackApplication.class, args);
     }
 
-//    @Bean
+    @Bean
     CommandLineRunner commandLineRunner(@Qualifier("jpa") CustomerRepository customers) {
         return args -> {
 
