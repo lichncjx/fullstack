@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "backend-api",
-      "image": "lichncjx/backend-api:latest",
+      "image": "lichncjx/backend-api:02.09.2023.16.21.01",
       "essential": true,
       "memory": 512,
       "portMappings": [
