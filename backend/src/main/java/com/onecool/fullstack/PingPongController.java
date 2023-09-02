@@ -12,6 +12,5 @@ public class PingPongController {
     }
 
     public record PingPong(String result) {
-
     }
 }
