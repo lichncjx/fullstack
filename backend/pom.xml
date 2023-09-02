@@ -17,6 +17,8 @@
 		<java.version>17</java.version>
 		<testcontainers.version>1.17.6</testcontainers.version>
 		<docker.username>lichncjx</docker.username>
+		<docker.image.name>backend-api</docker.image.name>
+		<docker.image.tag/>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -116,7 +118,7 @@
 				<version>3.3.2</version>
 				<configuration>
 					<to>
-						<image>docker.io/${docker.username}/${project.artifactId}:${project.version}</image>
+						<image>docker.io/${docker.username}/${docker.image.name}:${docker.image.tag}</image>
 						<tags>
 							<tag>latest</tag>
 						</tags>
